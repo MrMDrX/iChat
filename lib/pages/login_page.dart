@@ -3,7 +3,8 @@ import 'package:ichat/widgets/app_button.dart';
 import 'package:ichat/widgets/app_textfield.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final void Function()? onPressed;
+  const LoginPage({super.key, required this.onPressed});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const Text("Don't have an account ?"),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: widget.onPressed,
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),

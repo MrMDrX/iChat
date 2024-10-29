@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ichat/pages/login_page.dart';
+import 'package:ichat/auth/login_or_register.dart';
 import 'package:ichat/themes/theme.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const LoginOrRegister(),
     );
   }
 }

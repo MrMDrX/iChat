@@ -3,7 +3,8 @@ import 'package:ichat/widgets/app_button.dart';
 import 'package:ichat/widgets/app_textfield.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final void Function()? onPressed;
+  const RegisterPage({super.key, required this.onPressed});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -77,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 const Text("Already a member ?"),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: widget.onPressed,
                   child: const Text(
                     "Login",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
