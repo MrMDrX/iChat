@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ichat/auth/auth_service.dart';
 import 'package:ichat/widgets/app_button.dart';
 import 'package:ichat/widgets/app_textfield.dart';
 
@@ -11,20 +12,34 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _pwdController = TextEditingController();
+  final TextEditingController _confirmPwdController = TextEditingController();
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
+    _emailController.dispose();
+    _pwdController.dispose();
+    _confirmPwdController.dispose();
     super.dispose();
   }
 
-  void signup() {
-    //TODO: Implement signup
+  void signup() async {
+    final AuthService authService = AuthService();
+    try {
+      if (_emailController.text.isEmpty || _pwdController.text.isEmpty) {
+        throw Exception('Please fill in email and password');
+      }
+      if (_pwdController.text != _confirmPwdController.text) {
+        throw Exception('Passwords do not match');
+      }
+      await authService.signUp(_emailController.text, _pwdController.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(content: Text(e.toString())),
+      );
+    }
   }
 
   @override
@@ -55,19 +70,19 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(height: 32),
             AppTextfield(
               hintText: 'Email',
-              controller: emailController,
+              controller: _emailController,
               obscureText: false,
             ),
             const SizedBox(height: 16),
             AppTextfield(
               hintText: 'Password',
-              controller: passwordController,
+              controller: _pwdController,
               obscureText: true,
             ),
             const SizedBox(height: 16),
             AppTextfield(
               hintText: 'Confirm Password',
-              controller: confirmPasswordController,
+              controller: _confirmPwdController,
               obscureText: true,
             ),
             const SizedBox(height: 24),

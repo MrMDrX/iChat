@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ichat/auth/auth_service.dart';
 import 'package:ichat/widgets/app_button.dart';
 import 'package:ichat/widgets/app_textfield.dart';
 
@@ -11,18 +12,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _pwdController = TextEditingController();
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _pwdController.dispose();
     super.dispose();
   }
 
-  void login() {
-    //TODO: Implement login
+  void login() async {
+    final AuthService authService = AuthService();
+    try {
+      if (_emailController.text.isEmpty || _pwdController.text.isEmpty) {
+        throw Exception('Please fill in email and password');
+      }
+      await authService.signIn(_emailController.text, _pwdController.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(content: Text(e.toString())),
+      );
+    }
   }
 
   @override
@@ -53,13 +65,13 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 32),
             AppTextfield(
               hintText: 'Email',
-              controller: emailController,
+              controller: _emailController,
               obscureText: false,
             ),
             const SizedBox(height: 16),
             AppTextfield(
               hintText: 'Password',
-              controller: passwordController,
+              controller: _pwdController,
               obscureText: true,
             ),
             const SizedBox(height: 24),
