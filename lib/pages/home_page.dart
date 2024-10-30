@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ichat/pages/chat_page.dart';
 import 'package:ichat/services/auth/auth_service.dart';
 import 'package:ichat/services/chat/chat_service.dart';
 import 'package:ichat/widgets/drawer.dart';
@@ -42,7 +43,16 @@ class HomePage extends StatelessWidget {
                 ? const SizedBox.shrink()
                 : UserTile(
                     username: user['email'],
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatPage(
+                              receiverEmail: user['email'],
+                              receiverId: user['uid'],
+                            ),
+                          ));
+                    },
                   );
           },
         );
