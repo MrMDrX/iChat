@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ichat/auth/auth_service.dart';
+import 'package:ichat/widgets/drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,13 +14,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('iChat'),
-        actions: [
-          IconButton(
-            onPressed: logout,
-            icon: const Icon(Icons.logout),
-          ),
-        ],
+        centerTitle: true,
       ),
+      drawer: const AppDrawer(),
       body: const Center(
         child: Text('HomePage'),
       ),
