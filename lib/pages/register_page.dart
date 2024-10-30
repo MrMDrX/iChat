@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ichat/auth/auth_service.dart';
+import 'package:ichat/services/auth/auth_service.dart';
 import 'package:ichat/widgets/app_button.dart';
 import 'package:ichat/widgets/app_textfield.dart';
 

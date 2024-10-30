@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ichat/auth/auth_service.dart';
+import 'package:ichat/services/auth/auth_service.dart';
 import 'package:ichat/pages/about.dart';
 import 'package:ichat/pages/settings.dart';
 import 'package:ichat/widgets/drawer_tile.dart';
