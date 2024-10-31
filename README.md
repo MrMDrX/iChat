@@ -2,6 +2,20 @@
 
 A minimal chat application made in Flutter and Firebase.
 
+## Screenshots
+
+### Dark Mode
+
+| **Sign up** | **Sign in** | **Home** | **Chat** |
+| --- | --- | --- | --- |
+| ![Sign up](readme-assets/screenshots/register_dark.png) | ![Sign in](readme-assets/screenshots/login_dark.png) | ![Home](readme-assets/screenshots/home_dark.png) | ![Chat](readme-assets/screenshots/chat_dark.png) |
+
+### Light Mode
+
+| **Sign up** | **Sign in** | **Home** | **Chat** |
+| --- | --- | --- | --- |
+| ![Sign up](readme-assets/screenshots/register_light.png) | ![Sign in](readme-assets/screenshots/login_light.png) | ![Home](readme-assets/screenshots/home_light.png) | ![Chat](readme-assets/screenshots/chat_light.png) |
+
 ## Getting Started
 
 ### Prerequisites
