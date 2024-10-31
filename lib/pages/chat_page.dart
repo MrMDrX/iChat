@@ -22,17 +22,49 @@ class _ChatPageState extends State<ChatPage> {
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
 
+  final FocusNode _msgFocusNode = FocusNode();
+
+  final ScrollController _scrollController = ScrollController();
+
   void sendMessage() async {
     String msg = _msgController.text;
     if (msg.isNotEmpty) {
       await _chatService.sendMessage(widget.receiverId, msg);
       _msgController.clear();
+      scrollToBottom();
     }
+  }
+
+  void scrollToBottom() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _msgFocusNode.addListener(() {
+      if (_msgFocusNode.hasFocus) {
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () => scrollToBottom(),
+        );
+      }
+    });
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => scrollToBottom(),
+    );
   }
 
   @override
   void dispose() {
     _msgController.dispose();
+    _msgFocusNode.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -42,6 +74,17 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         title: Text(widget.receiverEmail.split('@')[0]),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.call_rounded),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.video_call_rounded),
+          ),
+          const SizedBox(width: 4),
+        ],
       ),
       body: Column(
         children: [
@@ -71,6 +114,7 @@ class _ChatPageState extends State<ChatPage> {
           }
           if (snapshot.hasData) {
             return ListView.builder(
+              controller: _scrollController,
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 final doc = snapshot.data!.docs[index];
@@ -91,30 +135,12 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     bool isSender = data['senderId'] == _authService.currentUser!.uid;
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 8.0,
-        horizontal: 16.0,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Column(
         crossAxisAlignment:
             isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Text(
-            data['senderEmail'].split('@')[0],
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Row(
-            mainAxisAlignment:
-                isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 16),
-              ChatBubble(message: data['message'], isSender: isSender)
-            ],
-          ),
+          ChatBubble(message: data['message'], isSender: isSender),
         ],
       ),
     );
@@ -129,6 +155,7 @@ class _ChatPageState extends State<ChatPage> {
           Expanded(
             child: TextField(
               controller: _msgController,
+              focusNode: _msgFocusNode,
               decoration: const InputDecoration(
                 filled: true,
                 hintText: 'Type a message...',

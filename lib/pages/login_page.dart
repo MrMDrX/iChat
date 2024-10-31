@@ -66,13 +66,14 @@ class _LoginPageState extends State<LoginPage> {
             AppTextfield(
               hintText: 'Email',
               controller: _emailController,
-              obscureText: false,
+              icon: Icons.email_outlined,
             ),
             const SizedBox(height: 16),
             AppTextfield(
               hintText: 'Password',
               controller: _pwdController,
               obscureText: true,
+              icon: Icons.lock_outlined,
             ),
             const SizedBox(height: 24),
             AppButton(text: 'Login', onTap: login),

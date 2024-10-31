@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ichat/utils/open_url.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
-
-/*   Future<void> _launchURL() async {
-    const url = 'https://github.com/mrmdrx/ifood';
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
-  } */
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +11,7 @@ class AboutPage extends StatelessWidget {
         title: Text(
           "ABOUT",
           style: TextStyle(
-            color: Theme.of(context).colorScheme.inversePrimary,
+            color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.w600,
             letterSpacing: 4,
           ),
@@ -42,7 +34,7 @@ class AboutPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.newspaper_rounded,
+                    Icon(Icons.chat_rounded,
                         size: 46, color: Theme.of(context).colorScheme.primary),
                     const SizedBox(width: 10),
                     Text(
@@ -69,11 +61,13 @@ class AboutPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     elevation: 4,
                     backgroundColor:
-                        Theme.of(context).colorScheme.onTertiaryFixedVariant,
+                        Theme.of(context).colorScheme.primaryContainer,
                     padding: const EdgeInsets.symmetric(
-                        vertical: 24, horizontal: 32),
+                        vertical: 16, horizontal: 32),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    openURL("https://github.com/mrmdrx/iChat");
+                  },
                   child: const Text("View on GitHub"),
                 ),
               ],

@@ -15,8 +15,21 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('iChat'),
+          title: Text(
+            'iChat',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           centerTitle: true,
+          actions: [
+            IconButton(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              onPressed: () {},
+              icon: const Icon(Icons.account_circle_rounded, size: 36),
+            ),
+          ],
         ),
         drawer: const AppDrawer(),
         body: _buildUsersList(context));

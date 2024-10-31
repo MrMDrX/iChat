@@ -71,19 +71,21 @@ class _RegisterPageState extends State<RegisterPage> {
             AppTextfield(
               hintText: 'Email',
               controller: _emailController,
-              obscureText: false,
+              icon: Icons.email_outlined,
             ),
             const SizedBox(height: 16),
             AppTextfield(
               hintText: 'Password',
               controller: _pwdController,
               obscureText: true,
+              icon: Icons.lock_outline,
             ),
             const SizedBox(height: 16),
             AppTextfield(
               hintText: 'Confirm Password',
               controller: _confirmPwdController,
               obscureText: true,
+              icon: Icons.lock_outline,
             ),
             const SizedBox(height: 24),
             AppButton(text: 'Sign up', onTap: signup),

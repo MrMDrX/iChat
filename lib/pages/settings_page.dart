@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ichat/themes/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -10,7 +12,7 @@ class SettingsPage extends StatelessWidget {
         title: Text(
           "SETTINGS",
           style: TextStyle(
-              color: Theme.of(context).colorScheme.inversePrimary,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w600,
               letterSpacing: 4),
         ),
@@ -39,9 +41,12 @@ class SettingsPage extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
                 Switch(
-                  value: true,
+                  value: Provider.of<ThemeProvider>(context).isDarkMode,
                   activeColor: Theme.of(context).colorScheme.inversePrimary,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme();
+                  },
                 )
               ],
             ),

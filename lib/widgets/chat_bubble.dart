@@ -12,13 +12,15 @@ class ChatBubble extends StatelessWidget {
       decoration: BoxDecoration(
         color: isSender
             ? Theme.of(context).colorScheme.primaryContainer
-            : Theme.of(context).colorScheme.secondaryContainer,
+            : Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(16),
       ),
-      width: MediaQuery.of(context).size.width * 0.5,
       child: Text(
         message,
-        style: const TextStyle(
+        style: TextStyle(
+          color: isSender
+              ? Theme.of(context).colorScheme.onPrimaryContainer
+              : Theme.of(context).colorScheme.onPrimary,
           fontSize: 16,
         ),
       ),
